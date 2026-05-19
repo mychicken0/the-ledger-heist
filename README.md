@@ -2,6 +2,8 @@
 
 The Ledger Heist is a terminal accounting puzzle game built with Python and Textual.
 
+![The Ledger Heist Gameplay Screenshot](tlh.png)
+
 You solve safe accounting simulations by posting balanced journal entries, reviewing account ledgers, checking a trial balance, and clearing audit-style objectives. The game is educational and puzzle-like; it is not financial advice and does not provide real-world fraud instructions.
 
 ## Requirements
