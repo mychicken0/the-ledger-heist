@@ -3,6 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from textual.app import App
+from textual.binding import Binding
 
 from app.screens import GameScreen, MainMenuScreen, LevelSelectScreen
 
@@ -17,7 +18,7 @@ class LedgerHeistApp(App[None]):
         "level_select": LevelSelectScreen,
     }
     BINDINGS = [
-        ("ctrl+c", "noop", "Blocked", False),
+        Binding("ctrl+c", "noop", "Blocked", show=False),
     ]
 
     def action_noop(self) -> None:
