@@ -52,8 +52,6 @@ accounts
 list
 rules
 entry debit <account> <amount> credit <account> <amount> [memo text]
-entry debit.<account>(amount) credit.<account>(amount) [memo text]
-debit.<account>(amount) credit.<account>(amount) [memo text]
 ledger <account>
 trial
 docs
@@ -70,10 +68,10 @@ exit
 ## Journal Entry Examples
 
 ```text
-debit.cash(100) credit.service_revenue(100) sale recorded
-debit.cash(500) credit.loan_payable(500) bank loan
-debit.rent_expense(50) credit.cash(50) paid rent
-debit.suspense(50) credit.service_revenue(50) clear suspense
+entry debit cash 100 credit service_revenue 100 sale recorded
+entry debit cash 500 credit loan_payable 500 bank loan
+entry debit rent_expense 50 credit cash 50 paid rent
+entry debit suspense 50 credit service_revenue 50 clear suspense
 ```
 
 Every journal entry must balance: total debits must equal total credits. Amounts are positive integers, accounts must exist, locked accounts cannot be changed, and the period must be open.

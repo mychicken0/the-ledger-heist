@@ -7,8 +7,6 @@ from game.documents import DocumentError
 from game.ledger import LedgerError
 
 
-ENTRY_CALL_PATTERN = re.compile(r"^(debit|credit)\.([A-Za-z0-9_]+)\((-?\d+)\)$", re.IGNORECASE)
-
 
 class CommandProcessor:
     def __init__(self, engine: GameEngine) -> None:
@@ -32,8 +30,7 @@ class CommandProcessor:
             return CommandResult(self._rules(self.engine.get_view()))
         if command == "entry":
             return self._entry(parts)
-        if ENTRY_CALL_PATTERN.match(parts[0]):
-            return self._entry_call(parts)
+
         if command == "ledger":
             return self._ledger(parts)
         if command == "trial":
@@ -82,13 +79,9 @@ class CommandProcessor:
         return CommandResult(f"Unknown command '{parts[0]}'. Try 'help'.")
 
     def _entry(self, parts: list[str]) -> CommandResult:
-        if len(parts) > 1 and ENTRY_CALL_PATTERN.match(parts[1]):
-            return self._entry_call(parts[1:])
-
         if len(parts) < 7:
             return CommandResult(
-                "Usage: entry debit <account> <amount> credit <account> <amount> [memo text]\n"
-                "   or: entry debit.<account>(amount) credit.<account>(amount) [memo text]"
+                "Usage: entry debit <account> <amount> credit <account> <amount> [memo text]"
             )
 
         debit_lines: list[tuple[str, int]] = []
@@ -113,32 +106,7 @@ class CommandProcessor:
         memo = " ".join(parts[index:]) or "No memo"
         return self.engine.post_entry(debit_lines, credit_lines, memo)
 
-    def _entry_call(self, parts: list[str]) -> CommandResult:
-        debit_lines: list[tuple[str, int]] = []
-        credit_lines: list[tuple[str, int]] = []
-        index = 0
 
-        while index < len(parts):
-            match = ENTRY_CALL_PATTERN.match(parts[index])
-            if not match:
-                break
-            side, account, raw_amount = match.groups()
-            amount = self._parse_positive_int(raw_amount, "Entry amount")
-            if isinstance(amount, CommandResult):
-                return amount
-            if side.lower() == "debit":
-                debit_lines.append((account, amount))
-            else:
-                credit_lines.append((account, amount))
-            index += 1
-
-        if not debit_lines or not credit_lines:
-            return CommandResult(
-                "Usage: debit.<account>(amount) credit.<account>(amount) [memo text]"
-            )
-
-        memo = " ".join(parts[index:]) or "No memo"
-        return self.engine.post_entry(debit_lines, credit_lines, memo)
 
     def _ledger(self, parts: list[str]) -> CommandResult:
         if len(parts) != 2:
@@ -180,8 +148,6 @@ class CommandProcessor:
             "  accounts                   (list is an alias)\n"
             "  rules\n"
             "  entry debit <account> <amount> credit <account> <amount> [memo text]\n"
-            "  entry debit.<account>(amount) credit.<account>(amount) [memo text]\n"
-            "  debit.<account>(amount) credit.<account>(amount) [memo text]\n"
             "  ledger <account>\n"
             "  trial\n"
             "  docs\n"
