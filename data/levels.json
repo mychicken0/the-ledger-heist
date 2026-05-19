@@ -1,0 +1,621 @@
+{
+  "levels": [
+    {
+      "id": "basic_double_entry",
+      "title": "Basic Double Entry",
+      "briefing": "Record a simple service sale using one debit and one credit. This is a training ledger.",
+      "current_period": "2026-01",
+      "open_periods": ["2026-01"],
+      "closed_periods": [],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Company cash account."
+        },
+        {
+          "name": "service_revenue",
+          "type": "Revenue",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Revenue from consulting work."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 100,
+          "service_revenue": 100
+        },
+        "min_entries": 1,
+        "max_audit_risk": 12
+      },
+      "audit_limit": 15,
+      "command_limit": 5,
+      "rules": [
+        "Post one balanced journal entry for a 100 cash sale.",
+        "Use: debit.cash(100) credit.service_revenue(100) sale recorded",
+        "Trial balance must be balanced before lock."
+      ]
+    },
+    {
+      "id": "account_types",
+      "title": "Account Types",
+      "briefing": "Use assets, liabilities, expenses, and a locked equity account without disturbing the audit file.",
+      "current_period": "2026-02",
+      "open_periods": ["2026-02"],
+      "closed_periods": ["2026-01"],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Cash increases with debits and decreases with credits."
+        },
+        {
+          "name": "loan_payable",
+          "type": "Liability",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "A bank loan payable."
+        },
+        {
+          "name": "rent_expense",
+          "type": "Expense",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Monthly office rent expense."
+        },
+        {
+          "name": "owner_equity",
+          "type": "Equity",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": true,
+          "notes": "Locked for this tutorial."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 450,
+          "loan_payable": 500,
+          "rent_expense": 50,
+          "owner_equity": 0
+        },
+        "min_entries": 2,
+        "max_audit_risk": 16
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Record a 500 bank loan: debit cash, credit loan_payable.",
+        "Record 50 rent paid: debit rent_expense, credit cash.",
+        "Do not post to locked owner_equity."
+      ]
+    },
+    {
+      "id": "trial_balance_cleanup",
+      "title": "Trial Balance Cleanup",
+      "briefing": "The trial balance agrees, but suspense is still carrying a training difference. Clear it with a balanced journal entry.",
+      "current_period": "2026-03",
+      "open_periods": ["2026-03"],
+      "closed_periods": ["2026-01", "2026-02"],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 300,
+          "locked": false,
+          "notes": "Opening cash balance."
+        },
+        {
+          "name": "accounts_receivable",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 100,
+          "locked": false,
+          "notes": "Customer amounts due."
+        },
+        {
+          "name": "service_revenue",
+          "type": "Revenue",
+          "normal_side": "credit",
+          "balance": 350,
+          "locked": false,
+          "notes": "Revenue already recognized."
+        },
+        {
+          "name": "suspense",
+          "type": "Liability",
+          "normal_side": "credit",
+          "balance": 50,
+          "locked": false,
+          "notes": "Temporary training account that must be cleared."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 300,
+          "accounts_receivable": 100,
+          "service_revenue": 400,
+          "suspense": 0
+        },
+        "no_suspense_remaining": true,
+        "min_entries": 1,
+        "max_audit_risk": 18
+      },
+      "audit_limit": 22,
+      "command_limit": 6,
+      "rules": [
+        "Clear suspense without changing cash.",
+        "Use a balanced entry that debits suspense and credits service_revenue for 50.",
+        "Lock only when suspense is zero and the trial balance is balanced."
+      ]
+    },
+    {
+      "id": "supporting_documents",
+      "title": "Supporting Documents",
+      "briefing": "An invoice is waiting in the audit packet. Record the sale and attach the matching document.",
+      "current_period": "2026-04",
+      "open_periods": ["2026-04"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03"],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Cash is not involved in this invoice-only sale."
+        },
+        {
+          "name": "accounts_receivable",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Amounts billed but not yet collected."
+        },
+        {
+          "name": "service_revenue",
+          "type": "Revenue",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Revenue for consulting services."
+        }
+      ],
+      "documents": [
+        {
+          "id": "inv-410",
+          "type": "invoice",
+          "amount": 150,
+          "related_account": "accounts_receivable",
+          "period": "2026-04",
+          "description": "Invoice for consulting services, unpaid at period end."
+        },
+        {
+          "id": "rcpt-099",
+          "type": "receipt",
+          "amount": 80,
+          "related_account": "cash",
+          "period": "2026-04",
+          "description": "Small cash receipt from an unrelated training scenario."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 0,
+          "accounts_receivable": 150,
+          "service_revenue": 150
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["inv-410"],
+        "all_entries_documented": true,
+        "max_audit_risk": 16
+      },
+      "audit_limit": 22,
+      "command_limit": 8,
+      "rules": [
+        "Use docs to list available support and inspect the files.",
+        "Record the invoice: debit.accounts_receivable(150) credit.service_revenue(150) invoice recorded",
+        "Attach the matching supporting invoice document to the journal entry.",
+        "Lock only when the entry is documented and the trial balance is balanced."
+      ]
+    },
+    {
+      "id": "accrued_expenses",
+      "title": "Accrued Expenses",
+      "briefing": "It's the end of the period and employees have earned wages that won't be paid until next month. Accrue the wages expense and attach the timesheet document.",
+      "current_period": "2026-05",
+      "open_periods": ["2026-05"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03", "2026-04"],
+      "accounts": [
+        {
+          "name": "wage_expense",
+          "type": "Expense",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Cost of employee labor."
+        },
+        {
+          "name": "wages_payable",
+          "type": "Liability",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Wages owed to employees."
+        }
+      ],
+      "documents": [
+        {
+          "id": "ts-05",
+          "type": "timesheet",
+          "amount": 200,
+          "related_account": "wage_expense",
+          "period": "2026-05",
+          "description": "Monthly employee timesheet summary."
+        },
+        {
+          "id": "inv-repair",
+          "type": "invoice",
+          "amount": 150,
+          "related_account": "repair_expense",
+          "period": "2026-05",
+          "description": "Unrelated invoice for office repair."
+        },
+        {
+          "id": "ts-04",
+          "type": "timesheet",
+          "amount": 180,
+          "related_account": "wage_expense",
+          "period": "2026-04",
+          "description": "Previous month's timesheet, already processed."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "wage_expense": 200,
+          "wages_payable": 200
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["ts-05"],
+        "all_entries_documented": true,
+        "max_audit_risk": 15
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Record accrued wages of 200.",
+        "Debit wage_expense, credit wages_payable.",
+        "Attach the matching work hours timesheet to the journal entry."
+      ]
+    },
+    {
+      "id": "depreciation",
+      "title": "Depreciation",
+      "briefing": "Record the monthly depreciation on our training equipment and attach the asset schedule.",
+      "current_period": "2026-06",
+      "open_periods": ["2026-06"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05"],
+      "accounts": [
+        {
+          "name": "equipment",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 1000,
+          "locked": false,
+          "notes": "Historical cost of equipment."
+        },
+        {
+          "name": "accumulated_depreciation",
+          "type": "contra_asset",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Contra-asset account for depreciation."
+        },
+        {
+          "name": "depreciation_expense",
+          "type": "Expense",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Depreciation expense for the period."
+        },
+        {
+          "name": "retained_earnings",
+          "type": "Equity",
+          "normal_side": "credit",
+          "balance": 1000,
+          "locked": true,
+          "notes": "Starting equity balance."
+        }
+      ],
+      "documents": [
+        {
+          "id": "sch-dep",
+          "type": "schedule",
+          "amount": 100,
+          "related_account": "depreciation_expense",
+          "period": "2026-06",
+          "description": "Monthly depreciation schedule."
+        },
+        {
+          "id": "sch-loan",
+          "type": "schedule",
+          "amount": 50,
+          "related_account": "loan_payable",
+          "period": "2026-06",
+          "description": "Bank loan amortization schedule."
+        },
+        {
+          "id": "inv-equip",
+          "type": "invoice",
+          "amount": 1000,
+          "related_account": "equipment",
+          "period": "2026-01",
+          "description": "Original purchase invoice for the equipment."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "accumulated_depreciation": 100,
+          "depreciation_expense": 100
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["sch-dep"],
+        "all_entries_documented": true,
+        "max_audit_risk": 15
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Record 100 of depreciation expense.",
+        "Credit accumulated_depreciation.",
+        "Attach the schedule document"
+      ]
+    },
+    {
+      "id": "inventory_purchase",
+      "title": "Inventory Purchase",
+      "briefing": "The company has purchased new stock on credit. Record the liability, asset, and attach the purchase order.",
+      "current_period": "2026-07",
+      "open_periods": ["2026-07"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06"],
+      "accounts": [
+        {
+          "name": "inventory",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Goods available for sale."
+        },
+        {
+          "name": "accounts_payable",
+          "type": "Liability",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Amounts owed to suppliers."
+        }
+      ],
+      "documents": [
+        {
+          "id": "po-102",
+          "type": "purchase_order",
+          "amount": 300,
+          "related_account": "inventory",
+          "period": "2026-07",
+          "description": "Purchase order for new inventory."
+        },
+        {
+          "id": "po-101",
+          "type": "purchase_order",
+          "amount": 150,
+          "related_account": "inventory",
+          "period": "2026-06",
+          "description": "Previous purchase order, already received."
+        },
+        {
+          "id": "memo-07",
+          "type": "memo",
+          "amount": 0,
+          "related_account": "none",
+          "period": "2026-07",
+          "description": "Internal memo regarding warehouse reorganization."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "inventory": 300,
+          "accounts_payable": 300
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["po-102"],
+        "all_entries_documented": true,
+        "max_audit_risk": 15
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Purchase 300 of inventory on credit.",
+        "Debit inventory, credit accounts_payable.",
+        "Attach the matching purchase order document to the journal entry."
+      ]
+    },
+    {
+      "id": "unearned_revenue",
+      "title": "Unearned Revenue",
+      "briefing": "A client has paid us in advance for work we haven't done yet. Record the cash, obligation, and attach the receipt.",
+      "current_period": "2026-08",
+      "open_periods": ["2026-08"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 50,
+          "locked": false,
+          "notes": "Operating cash."
+        },
+        {
+          "name": "unearned_revenue",
+          "type": "Liability",
+          "normal_side": "credit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Liability for services not yet provided."
+        },
+        {
+          "name": "retained_earnings",
+          "type": "Equity",
+          "normal_side": "credit",
+          "balance": 50,
+          "locked": true,
+          "notes": "Starting equity balance."
+        }
+      ],
+      "documents": [
+        {
+          "id": "rcpt-adv",
+          "type": "receipt",
+          "amount": 400,
+          "related_account": "cash",
+          "period": "2026-08",
+          "description": "Receipt for client advance payment."
+        },
+        {
+          "id": "inv-500",
+          "type": "invoice",
+          "amount": 400,
+          "related_account": "accounts_receivable",
+          "period": "2026-08",
+          "description": "Draft invoice for when the work is actually completed."
+        },
+        {
+          "id": "contract-b",
+          "type": "contract",
+          "amount": 1200,
+          "related_account": "unearned_revenue",
+          "period": "2026-08",
+          "description": "Total contract value for the upcoming project."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 450,
+          "unearned_revenue": 400
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["rcpt-adv"],
+        "all_entries_documented": true,
+        "max_audit_risk": 15
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Receive 400 cash in advance.",
+        "Debit cash, credit unearned_revenue.",
+        "Attach the matching cash receipt to the journal entry."
+      ]
+    },
+    {
+      "id": "dividend_payment",
+      "title": "Dividend Payment",
+      "briefing": "The board has declared and paid a cash dividend to shareholders. Attach the board resolution.",
+      "current_period": "2026-09",
+      "open_periods": ["2026-09"],
+      "closed_periods": ["2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"],
+      "accounts": [
+        {
+          "name": "cash",
+          "type": "Asset",
+          "normal_side": "debit",
+          "balance": 500,
+          "locked": false,
+          "notes": "Cash available for distribution."
+        },
+        {
+          "name": "dividends",
+          "type": "Equity",
+          "normal_side": "debit",
+          "balance": 0,
+          "locked": false,
+          "notes": "Distributions to shareholders."
+        },
+        {
+          "name": "retained_earnings",
+          "type": "Equity",
+          "normal_side": "credit",
+          "balance": 500,
+          "locked": true,
+          "notes": "Starting equity balance."
+        }
+      ],
+      "documents": [
+        {
+          "id": "res-div",
+          "type": "resolution",
+          "amount": 150,
+          "related_account": "dividends",
+          "period": "2026-09",
+          "description": "Board resolution authorizing dividend payment."
+        },
+        {
+          "id": "res-bonus",
+          "type": "resolution",
+          "amount": 50,
+          "related_account": "wage_expense",
+          "period": "2026-09",
+          "description": "Board resolution authorizing executive bonuses."
+        },
+        {
+          "id": "stmt-bank",
+          "type": "statement",
+          "amount": 500,
+          "related_account": "cash",
+          "period": "2026-09",
+          "description": "Bank statement showing end of month balance."
+        }
+      ],
+      "objectives": {
+        "trial_balance_balanced": true,
+        "required_balances": {
+          "cash": 350,
+          "dividends": 150
+        },
+        "min_entries": 1,
+        "required_documents_attached": ["res-div"],
+        "all_entries_documented": true,
+        "max_audit_risk": 15
+      },
+      "audit_limit": 20,
+      "command_limit": 7,
+      "rules": [
+        "Pay 150 in dividends.",
+        "Debit dividends, credit cash.",
+        "Attach the matching board resolution to the journal entry."
+      ]
+    }
+  ]
+}

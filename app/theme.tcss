@@ -1,0 +1,255 @@
+Screen {
+    background: #020705;
+    color: #b8ffd4;
+}
+
+Header {
+    background: #03140d;
+    color: #7dffae;
+    text-style: bold;
+}
+
+Footer {
+    background: #03140d;
+    color: #5bdd91;
+}
+
+#menu-root {
+    height: 100%;
+    align: center middle;
+    padding: 2 4;
+}
+
+#menu-title {
+    width: 64;
+    content-align-horizontal: center;
+    color: #8dffb8;
+    text-style: bold;
+    text-align: center;
+    padding: 1 2;
+}
+
+#menu-copy {
+    width: 64;
+    content-align-horizontal: center;
+    text-align: center;
+    color: #d6ffe4;
+    margin: 1 0 2 0;
+}
+
+#menu-actions {
+    width: 64;
+    height: 3;
+    align-horizontal: center;
+}
+
+Button {
+    margin: 0 1;
+}
+
+#game-root {
+    height: 100%;
+    layout: vertical;
+    padding: 0 1;
+}
+
+#top-row {
+    height: 10;
+    margin: 0 0 1 0;
+}
+
+MissionBriefingPanel {
+    width: 1fr;
+    height: 100%;
+    border: solid #155f3a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    background: #04110c;
+    color: #d9ffe8;
+    padding: 0 2;
+    margin: 0 1 0 0;
+}
+
+DocumentViewerPanel {
+    width: 52;
+    height: 100%;
+    border: solid #155f3a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    background: #04110c;
+    color: #d9ffe8;
+    padding: 0 1;
+}
+
+#main-pane {
+    height: 1fr;
+    margin: 0;
+}
+
+#left-pane {
+    width: 1fr;
+    height: 100%;
+    layout: vertical;
+}
+
+#right-pane {
+    width: 52;
+    height: 100%;
+    layout: vertical;
+}
+
+#ledger-row {
+    height: 10;
+}
+
+#ledger-row AccountingPanel, #ledger-row JournalEntriesPanel {
+    height: 100%;
+}
+
+AccountingPanel {
+    width: 1fr;
+    height: 100%;
+    border: solid #1d7a4a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    padding: 0 2;
+    margin: 0 1 0 0;
+    background: #030e0a;
+    color: #c8ffdb;
+}
+
+JournalEntriesPanel {
+    width: 1fr;
+    height: 100%;
+    border: solid #1d7a4a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    padding: 0 2;
+    margin: 0 1 0 0;
+    background: #030e0a;
+    color: #c8ffdb;
+}
+
+FileSystemPanel {
+    width: 100%;
+    height: 10;
+    border: solid #1d7a4a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    background: #030e0a;
+    color: #c8ffdb;
+    padding: 0;
+    margin: 0 0 1 0;
+}
+
+StatusPanel {
+    width: 100%;
+    height: 1fr;
+    border: solid #2cff8f;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    padding: 0 2;
+    background: #06130e;
+    color: #e0ffeb;
+    overflow-y: auto;
+}
+
+StatusPanel:focus {
+    border: double #2cff8f;
+    border-title-color: #2cff8f;
+}
+
+AuditLogPanel {
+    height: 1fr;
+    border: solid #155f3a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    padding: 0 2;
+    margin: 1 1 1 0;
+    background: #020b08;
+    color: #a8ffc9;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+#command-input {
+    height: 3;
+    border: tall #2cff8f;
+    background: #03110d;
+    color: #e0ffeb;
+}
+
+#level-select-root {
+    height: 100%;
+    layout: vertical;
+    padding: 1 2;
+}
+
+#level-select-title {
+    width: 100%;
+    color: #8dffb8;
+    text-style: bold;
+    text-align: center;
+    padding: 1 0;
+}
+
+#level-select-grid {
+    height: 1fr;
+    margin: 1 0;
+}
+
+#level-list-pane {
+    width: 48%;
+    height: 100%;
+    border: solid #1d7a4a;
+    border-title-style: bold;
+    border-title-color: #7dffae;
+    background: #030e0a;
+    padding: 0;
+    margin: 0 1 0 0;
+}
+
+#level-details-pane {
+    width: 52%;
+    height: 100%;
+    border: solid #2cff8f;
+    border-title-style: bold;
+    border-title-color: #2cff8f;
+    background: #04130d;
+    padding: 1 2;
+    overflow-y: auto;
+}
+
+#level-list {
+    background: transparent;
+    color: #c8ffdb;
+    height: 100%;
+}
+
+#level-list ListItem {
+    padding: 1 1;
+    background: transparent;
+    color: #7dffae;
+}
+
+#level-list ListItem:hover {
+    background: #0a2517;
+    color: #2cff8f;
+}
+
+#level-list ListItem.--highlight {
+    background: #113620;
+    color: #2cff8f;
+    text-style: bold;
+}
+
+#level-details {
+    color: #c8ffdb;
+}
+
+#level-select-actions {
+    width: 100%;
+    height: 3;
+    align: center middle;
+    margin: 1 0 0 0;
+}

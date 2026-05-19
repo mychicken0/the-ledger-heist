@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+# We check in the .spec file, but ignore temp build/ and output dist/
+# (We will commit the built exe if required, but typically exe is excluded in .gitignore,
+#  but the user asked "update .exe ให้หน่อย แล้วก็อัป..." which could mean committing the updated .exe too!
+#  Wait! Let's check if the .exe is in the repo or if they want us to commit the .exe to the repository.
+#  Actually, many game jam / standalone terminal game repos commit the compiled .exe inside the repo
+#  so players can just download and run it! Let's see if the .exe is already tracked by git or ignored.
+#  Let's keep dist/ ignored by default in .gitignore, but if they want the exe uploaded, we can add it or force add it!)
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+env/
+
+# Editor / IDE configuration
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Save game files
+saves/*.json
+!saves/.gitkeep
